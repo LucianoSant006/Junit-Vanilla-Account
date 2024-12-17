@@ -2,10 +2,12 @@ package entities;
 
 public class Account {
 
+    public static double DEPOSIT_FREE_PERCENTAGE = 0.02;
+
     private Long id;
     private Double balance;
 
-    public Account(){
+    public Account() {
 
     }
 
@@ -26,5 +28,25 @@ public class Account {
         return balance;
     }
 
-   
+    public void deposit(double amount) {
+        if (amount > 0) {
+            amount = amount - amount * DEPOSIT_FREE_PERCENTAGE;
+            balance += amount;
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > balance) {
+            throw new IllegalArgumentException();
+        }
+        balance -= amount;
+    }
+
+    public double fullWithdraw() {
+        double aux = balance;
+        balance = 0.0;
+        return aux;
+    }
+
+
 }
